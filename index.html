@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>속초 MT · 수목금</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16241f; --paper:#f3efe6; --card:#fbf9f3;
+    --sea:#1f6f63; --sea-deep:#0f4a42; --sun:#e08a3c;
+    --line:#d8d0c0; --muted:#6f6a5e; --mist:#eae4d6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;font-size:18px;}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans KR',sans-serif;line-height:1.65;padding:36px 0 80px;}
+  .wrap{max-width:780px;margin:0 auto;padding:0 22px;}
+  a{color:inherit;}
+
+  /* DAY */
+  .day{margin-top:50px;}
+  .day:first-of-type{margin-top:0;}
+  .day-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:10px;}
+  .day-no{font-family:'Gowun Batang',serif;font-weight:700;font-size:1.7rem;line-height:1;color:var(--sea);}
+  .day-title{font-weight:600;font-size:1.3rem;}
+  .day-sub{margin-left:auto;font-size:.9rem;color:var(--muted);letter-spacing:.04em;}
+
+  /* TIMELINE */
+  .tl{list-style:none;margin:18px 0 4px;}
+  .tl li{display:grid;grid-template-columns:80px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .tl li:last-child{border-bottom:none;}
+  .tl time{font-weight:600;font-size:.98rem;color:var(--sea-deep);font-variant-numeric:tabular-nums;padding-top:1px;}
+  .tl .ev{font-size:1.05rem;}
+  .tl .ev small{display:block;color:var(--muted);font-size:.9rem;margin-top:3px;line-height:1.5;}
+
+  /* SUBHEAD */
+  .sub{display:flex;align-items:center;gap:9px;margin:30px 0 4px;font-weight:600;font-size:1.18rem;}
+  .sub .ic{font-size:1.25rem;}
+  .subhint{font-size:.9rem;color:var(--muted);margin-bottom:10px;}
+
+  /* MEMBER CHIPS */
+  .members{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px;}
+  .chip{font-size:.95rem;padding:6px 15px;border-radius:30px;background:var(--sea);color:#fff;font-weight:500;}
+  .mlabel{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:16px 0 8px;}
+
+  /* ALT ZONE */
+  .altzone{margin-top:20px;border:1px dashed var(--line);border-radius:16px;padding:22px 20px;background:linear-gradient(180deg,rgba(31,111,99,.04),transparent);}
+  .altzone-title{font-weight:600;font-size:1.1rem;color:var(--sea-deep);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+
+  .branch{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-top:14px;}
+  .branch h4{font-size:1.05rem;font-weight:600;color:var(--sea);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+  .branch ul{list-style:none;font-size:.98rem;color:#3a4842;}
+  .branch ul li{padding:6px 0 6px 16px;position:relative;line-height:1.5;}
+  .branch ul li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--sun);}
+
+  /* ALT MINI CARDS */
+  .alts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+  .alt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 13px;text-align:center;}
+  .alt .ai{font-size:1.7rem;display:block;margin-bottom:7px;}
+  .alt .an{font-weight:600;font-size:1rem;}
+  .alt .ad{font-size:.85rem;color:var(--muted);margin-top:5px;line-height:1.45;}
+
+  /* CALLOUT */
+  .note{margin-top:16px;border-left:3px solid var(--sun);background:linear-gradient(90deg,rgba(224,138,60,.09),transparent);padding:15px 18px;border-radius:0 10px 10px 0;font-size:.98rem;}
+  .note b{color:var(--sun);font-weight:600;}
+  .note.sea{border-left-color:var(--sea);background:linear-gradient(90deg,rgba(31,111,99,.1),transparent);}
+  .note.sea b{color:var(--sea-deep);}
+
+  /* LINK CARD */
+  .lcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin-top:11px;transition:border-color .15s,transform .15s;}
+  .lcard:hover{border-color:var(--sea);transform:translateY(-1px);}
+  .lcard .lrow{display:flex;align-items:center;gap:14px;text-decoration:none;}
+  .lcard .lic{width:42px;height:42px;border-radius:10px;background:var(--mist);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+  .lcard .li{flex:1;min-width:0;}
+  .lcard .ln{font-weight:600;font-size:1.05rem;display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+  .lcard .ldesc{font-size:.88rem;color:var(--muted);margin-top:3px;}
+  .lcard .larrow{color:var(--sea);font-size:1.2rem;flex-shrink:0;}
+  .naverbadge{font-size:.74rem;font-weight:600;color:#03c75a;border:1px solid #03c75a;border-radius:5px;padding:2px 7px;}
+  .copyrow{display:flex;align-items:center;gap:8px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line);}
+  .copyrow .url{flex:1;min-width:0;font-size:.86rem;color:var(--muted);font-family:'IBM Plex Sans KR';word-break:break-all;}
+  .copybtn{flex-shrink:0;font-size:.82rem;font-weight:600;color:var(--sea-deep);background:var(--mist);border:none;border-radius:7px;padding:6px 12px;cursor:pointer;font-family:inherit;transition:background .15s;}
+  .copybtn:hover{background:#dfd8c8;}
+  .copybtn.done{background:var(--sea);color:#fff;}
+
+  /* TABLE */
+  .tbl{width:100%;border-collapse:collapse;margin-top:16px;font-size:.98rem;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line);}
+  .tbl th,.tbl td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--line);}
+  .tbl th{background:var(--sea-deep);color:#f6f3ea;font-weight:500;font-size:.88rem;letter-spacing:.03em;}
+  .tbl tr:last-child td{border-bottom:none;}
+  .tbl td:first-child{font-weight:600;color:var(--sea-deep);}
+  .tbl .hi td{background:rgba(31,111,99,.08);}
+
+  footer{text-align:center;margin-top:44px;font-size:.86rem;color:var(--muted);line-height:1.7;}
+
+  @media(max-width:560px){
+    html{font-size:17px;}
+    .alts{grid-template-columns:1fr;}
+    .tl li{grid-template-columns:66px 1fr;gap:13px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- DAY 1 -->
+  <section class="day">
+    <div class="day-head"><div class="day-no">1일차</div><div class="day-sub">수요일</div></div>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/FfeOgbIo" target="_blank" rel="noopener">
+        <span class="lic">🏨</span>
+        <span class="li"><span class="ln">한화리조트 설악 쏘라노 <span class="naverbadge">NAVER</span></span><span class="ldesc">숙소 · 입실 15:00</span></span>
+        <span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 미시령로2983번길 111</span><button class="copybtn" data-url="강원 속초시 미시령로2983번길 111">복사</button></div>
+    </div>
+    <ul class="tl">
+      <li><time>10:00</time><div class="ev">연세대 제3공학관 출발</div></li>
+      <li><time>12:30</time><div class="ev">점심 — 대박맛집</div></li>
+      <li><time>~13:30</time><div class="ev">숙소 인근 도착</div></li>
+      <li><time>15:00</time><div class="ev">체크인 · 방 배정 · 짐 정리</div></li>
+      <li><time>15:30</time><div class="ev">장보기 팀 가르기 게임 (윷놀이) → 장보기</div></li>
+      <li><time>17:30</time><div class="ev">자유 활동 / 게임</div></li>
+      <li><time>18:00</time><div class="ev">아바이옛날식당으로 출발</div></li>
+      <li><time>18:30</time><div class="ev">저녁 — 아바이옛날식당 (시내)</div></li>
+      <li><time>20:30~</time><div class="ev">레크리에이션 + 잡담</div></li>
+    </ul>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/GTnAeDFt" target="_blank" rel="noopener">
+        <span class="lic">📍</span>
+        <span class="li"><span class="ln">아바이옛날식당 <span class="naverbadge">NAVER</span></span><span class="ldesc">1일차 저녁 · 지도에서 위치 보기</span></span>
+        <span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 아바이마을길 10</span><button class="copybtn" data-url="강원 속초시 아바이마을길 10">복사</button></div>
+    </div>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day">
+    <div class="day-head"><div class="day-no">2일차</div><div class="day-sub">목요일 · 8명 / 6명</div></div>
+
+    <div class="sub"><span class="ic">⛰</span>등산팀 · 8명 — 설악동 → 대청봉 → 오색</div>
+    <div class="mlabel">시작 멤버</div>
+    <div class="members">
+      <span class="chip">강홍구</span><span class="chip">송은우</span><span class="chip">김지현</span><span class="chip">강원준</span>
+      <span class="chip">정우진</span><span class="chip">김병현</span><span class="chip">김민건</span><span class="chip">신동윤</span>
+    </div>
+    <ul class="tl">
+      <li><time>05:30</time><div class="ev">기상 · 행동식 챙기기</div></li>
+      <li><time>06:30</time><div class="ev">소공원 출발</div></li>
+      <li><time>07:00</time><div class="ev">입산 (비선대 경유)</div></li>
+      <li><time>12:00</time><div class="ev">대청봉 정상 → 오색 하산</div></li>
+    </ul>
+    <div class="subhint">약 18~20km · 10~12시간</div>
+    <div class="note sea"><b>입산 통제</b> 하절기 새벽 3시부터 입산 가능 (비선대 통제소 3:00~14:00 통과). 정상은 6월에도 추우니 <b>방풍·방한의·장갑·우의·헤드랜턴 필수</b>. 출발 전 국립공원사무소(033-801-0900)로 개방 여부 확인.</div>
+
+    <div class="altzone">
+      <div class="altzone-title">🙅 안 대청봉팀 할거리 &amp; 🌧 비 왔을 때 대안</div>
+
+      <div class="branch">
+        <h4>♨ 설악워터피아 종일권</h4>
+        <ul>
+          <li>리조트 도보권 · 날씨 무관</li>
+          <li>오전 물놀이 → 오후 온천</li>
+          <li>샤크웨이브 · 메일스트롬 · 토렌트리버 · 스파밸리 16탕</li>
+          <li>17~18시 마무리 후 합류</li>
+        </ul>
+        <table class="tbl">
+          <tr><th>권종</th><th>이용 시간</th><th>퇴장</th></tr>
+          <tr class="hi"><td>종일권 ⭐</td><td>10:00 – 21:30</td><td>22:00</td></tr>
+          <tr><td>주간권</td><td>10:00 – 18:00</td><td>18:30</td></tr>
+          <tr><td>오후권</td><td>15:00 – 18:00</td><td>18:30</td></tr>
+          <tr><td>나이트스파</td><td>19:00 – 21:30</td><td>22:00</td></tr>
+        </table>
+        <div class="note sea">종일이라면 <b>종일권</b>이 정답 (나이트스파 포함). 나이트스파는 단독 권종이라 주간·오후권엔 미포함이며 그 시간엔 온천·실내 파도풀 위주로만 운영.</div>
+      </div>
+
+      <div class="alts">
+        <div class="alt"><span class="ai">🛍</span><span class="an">속초 중앙시장</span><span class="ad">닭강정·먹거리 천국, 시내 관광 베이스</span></div>
+        <div class="alt"><span class="ai">🏖</span><span class="an">아야진 해수욕장</span><span class="ad">한적·물 맑은 해변 (차 약 15분)</span></div>
+        <div class="alt"><span class="ai">🎡</span><span class="an">속초아이 대관람차</span><span class="ad">청초호 전망, 저녁 야경 좋음</span></div>
+      </div>
+    </div>
+
+    <div class="sub"><span class="ic">🍖</span>저녁 — 속초 바베큐 338 <span style="font-weight:400;font-size:.85rem;color:var(--muted)">· 19:30 전원 합류</span></div>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/52R5sg82" target="_blank" rel="noopener">
+        <span class="lic">🍖</span>
+        <span class="li"><span class="ln">속초 바베큐 338 <span class="naverbadge">NAVER</span></span><span class="ldesc">2일차 저녁 · 14명 사전 전화 예약</span></span>
+        <span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 원암학사평길 132</span><button class="copybtn" data-url="강원 속초시 원암학사평길 132">복사</button></div>
+    </div>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day">
+    <div class="day-head"><div class="day-no">3일차</div><div class="day-sub">금요일</div></div>
+    <ul class="tl">
+      <li><time>아침</time><div class="ev">가볍게 식사<small>남은 재료 처리</small></div></li>
+      <li><time>~11:00</time><div class="ev">체크아웃 · 객실 정리</div></li>
+    </ul>
+
+    <div class="sub"><span class="ic">🍚</span>점심 후보</div>
+
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/FSw7WhbY" target="_blank" rel="noopener">
+        <span class="lic">🍗</span><span class="li"><span class="ln">만석닭강정 중앙시장 본점 <span class="naverbadge">NAVER</span></span><span class="ldesc">닭강정 · 포장 간식·기념품</span></span><span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 중앙로147번길 16</span><button class="copybtn" data-url="강원 속초시 중앙로147번길 16">복사</button></div>
+    </div>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/5bVsWZdB" target="_blank" rel="noopener">
+        <span class="lic">🥣</span><span class="li"><span class="ln">초당본점 순두부 <span class="naverbadge">NAVER</span></span><span class="ldesc">순두부</span></span><span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 관광로 440</span><button class="copybtn" data-url="강원 속초시 관광로 440">복사</button></div>
+    </div>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/513NYJUf" target="_blank" rel="noopener">
+        <span class="lic">🍚</span><span class="li"><span class="ln">전원식당 <span class="naverbadge">NAVER</span></span><span class="ldesc">한식 백반</span></span><span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 영금정로 15</span><button class="copybtn" data-url="강원 속초시 영금정로 15">복사</button></div>
+    </div>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/5tJt7Hq8" target="_blank" rel="noopener">
+        <span class="lic">🍲</span><span class="li"><span class="ln">예원수육국밥 <span class="naverbadge">NAVER</span></span><span class="ldesc">수육국밥</span></span><span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 속초시 조양로21번길 18</span><button class="copybtn" data-url="강원 속초시 조양로21번길 18">복사</button></div>
+    </div>
+    <div class="lcard">
+      <a class="lrow" href="https://naver.me/xBw0l0zA" target="_blank" rel="noopener">
+        <span class="lic">🍜</span><span class="li"><span class="ln">박가고기국수 <span class="naverbadge">NAVER</span></span><span class="ldesc">고기국수</span></span><span class="larrow">↗</span>
+      </a>
+      <div class="copyrow"><span class="url">강원 양양군 강현면 물치1길 17</span><button class="copybtn" data-url="강원 양양군 강현면 물치1길 17">복사</button></div>
+    </div>
+  </section>
+
+  <footer>
+    운영시간·가격·통제 정보는 변동될 수 있으니 방문 전 각 시설 공식 채널에서 재확인하세요.
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.copybtn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var url = btn.getAttribute('data-url');
+      var done = function(){ btn.textContent='복사됨'; btn.classList.add('done'); setTimeout(function(){btn.textContent='복사';btn.classList.remove('done');},1500); };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done).catch(function(){fallback(url,done);});
+      } else { fallback(url,done); }
+    });
+  });
+  function fallback(text,done){
+    var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';
+    document.body.appendChild(t);t.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(t);
+  }
+</script>
+</body>
+</html>
